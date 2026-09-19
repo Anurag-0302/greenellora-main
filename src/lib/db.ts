@@ -40,6 +40,7 @@ async function connectDB() {
     cached.conn = await cached.promise;
   } catch (e) {
     cached.promise = null;
+    console.error(`MongoDB connection failed (${MONGODB_URI.replace(/\/\/.*@/, "//<credentials>@")}):`, e);
     throw e;
   }
 
