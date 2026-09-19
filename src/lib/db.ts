@@ -31,8 +31,12 @@ async function connectDB() {
       bufferCommands: false,
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      return mongoose;
+    cached.promise = mongoose.connect(MONGODB_URI, opts).catch((e) => {
+      console.error(
+        `MongoDB connection failed (${MONGODB_URI.replace(/\/\/.*@/, "//<credentials>@")}):`,
+        e
+      );
+      throw e;
     });
   }
 
